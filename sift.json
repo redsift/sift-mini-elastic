@@ -1,0 +1,76 @@
+{
+  "name": "mini-elastic",
+  "display-name": "Mini Elastic Sift",
+  "description": "",
+  "author": "Red Sift",
+  "version": "1.0.0",
+  "icon": "assets/blueprint.svg",
+  "interfaces": {
+    "email": {
+      "thread" : {
+        "controller": "dist/js/controller.umd-es2015.min.js"
+      },
+      "client" : {
+        "controller": "dist/js/email-client-controller.umd-es2015.min.js"
+      }
+    },
+    "summary": {
+      "controller": "dist/js/controller.umd-es2015.min.js"
+    }
+  },
+  "dag": {
+    "inputs":{
+      "rpc":{
+        "search":{
+          "methods": ["GET"],
+          "path": "/_search",
+          "CORS":{}
+        }
+      }
+    },
+    "nodes":[{
+      "#": "Index Node",
+      "implementation": {
+        "go": "server/load/load.go",
+        "sandbox": "quay.io/redsift/sandbox-go-rocksdb:v1.9",
+        "qos": {
+          "large-storage": ["rocksdb_store:rw"],
+          "long": true
+        },
+        "when":{
+          "crontab": "0 6 * * *"
+        }
+      },
+      "outputs":{
+        "stats": {}
+      }
+    },{
+      "#": "Query Node",
+      "input":{
+        "bucket": "search"
+      },
+      "implementation": {
+        "go": "server/search/search.go",
+        "sandbox": "quay.io/redsift/sandbox-go-rocksdb:v1.9",
+        "qos": {
+          "large-storage": ["rocksdb_store:ro"]
+        }
+      },
+      "outputs": {
+        "rpc_resp": {},
+        "stats":{}
+      }
+    }],
+    "stores":{},
+    "outputs":{
+      "exports":{
+        "stats":{
+          "key$schema": "string"
+        },
+        "rpc_resp": {
+          "import": "_rpc"
+        }
+      }
+    }
+  }
+}

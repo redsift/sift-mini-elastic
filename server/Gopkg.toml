@@ -1,0 +1,7 @@
+[[constraint]]
+  branch = "master"
+  name = "github.com/blevesearch/bleve"
+
+[[constraint]]
+  branch = "no-snapshot-release"
+  name = "github.com/redsift/blevex"
