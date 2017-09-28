@@ -79,7 +79,7 @@ func NewComputeResponse(k string, status int, b []byte, isJSON bool) sandboxrpc.
 	}
 
 	v, _ := json.Marshal(r)
-	return sandboxrpc.NewComputeResponse("rpc_rep", k, v, 0, 0)
+	return sandboxrpc.NewComputeResponse("rpc_resp", k, v, 0, 0)
 }
 
 func ErrorResponse(key string, msg string, err error) sandboxrpc.ComputeResponse {
