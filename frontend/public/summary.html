@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="dist/css/style.min.css">
+  </head>
+  <body id="home">
+    <div class="column">
+      <p>Mini Elastic Sift!</p>
+      <p>To query the API open a new terminal and run the command below with your query:</p>
+      <code>
+        $&gt; curl <span id="api_url"></span>/_search?q=&lt;FOO&gt; -H 'Authorization: Api-Key sdk'
+      </code>
+      <br>
+      <p>Index stats:</p>
+      <code id="index_stats" style="white-space: pre;"></code>
+    </div>
+    <!-- Your Sift view bundle -->
+    <script src="dist/js/view.umd-es2015.min.js"></script>
+  </body>
+</html>
