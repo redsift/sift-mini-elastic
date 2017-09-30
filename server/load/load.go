@@ -40,6 +40,9 @@ func Compute(req sandboxrpc.ComputeRequest) ([]sandboxrpc.ComputeResponse, error
 	if err != nil {
 		return nil, errors.New("Something went wrong while creating the index: " + err.Error())
 	}
+	defer func() {
+		idx.Close()
+	}()
 
 	datums, err := fetchMajesticCSV()
 	if err != nil {
@@ -52,5 +55,5 @@ func Compute(req sandboxrpc.ComputeRequest) ([]sandboxrpc.ComputeResponse, error
 		return nil, err
 	}
 
-	return []sandboxrpc.ComputeResponse{utils.ExportStats(idx)}, nil
+	return []sandboxrpc.ComputeResponse{utils.ExportStats(idx.StatsMap())}, nil
 }

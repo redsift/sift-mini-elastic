@@ -9,21 +9,21 @@ export default class MyView extends SiftView {
   constructor() {
     // You have to call the super() method to initialize the base class.
     super();
-    this.onStorageUpdate = this.onStorageUpdate.bind(this);
+    this.onStatsUpdate = this.onStatsUpdate.bind(this);
   }
 
   // for more info: http://docs.redsift.com/docs/client-code-siftview
   presentView(value) {
     console.log('mini-elastic: presentView: ', value);
     document.querySelector("#api_url").innerHTML = value.data.apiUrl;
-    this.controller.subscribe('storageupdated', this.onStorageUpdate);
-    this.onStorageUpdate(value.data)
+    this.controller.subscribe('stats', this.onStatsUpdate);
+    this.onStatsUpdate(value.data.stats)
   };
 
   willPresentView(value) { };
 
 
-  onStorageUpdate({stats}) {
+  onStatsUpdate(stats) {
     if (!stats || !stats.index) {
       return;
     }

@@ -15,19 +15,21 @@ import (
 
 func Compute(req sandboxrpc.ComputeRequest) ([]sandboxrpc.ComputeResponse, error) {
 	inData := req.In.Data
-	idx, err := utils.OpenIndex(true)
-	if err != nil {
-		err = errors.New("Something went wrong while creating the index: " + err.Error())
+	idx, errI := utils.OpenIndex(true)
+	if errI != nil {
+		errI = errors.New("Something went wrong while creating the index: " + errI.Error())
 	}
 	defer func() {
-		idx.Close()
+		if errI == nil {
+			idx.Close()
+		}
 	}()
 
 	var resp []sandboxrpc.ComputeResponse
 	searchFields := []string{"*"}
 	for _, v := range inData {
-		if err != nil {
-			resp = append(resp, ErrorResponse(v.Data.Key, "", err))
+		if errI != nil {
+			resp = append(resp, ErrorResponse(v.Data.Key, "", errI))
 			break
 		}
 		var rpcReq rpc.Request
@@ -64,7 +66,9 @@ func Compute(req sandboxrpc.ComputeRequest) ([]sandboxrpc.ComputeResponse, error
 		resp = append(resp, r)
 	}
 
-	resp = append(resp, utils.ExportStats(idx))
+	if idx != nil {
+		resp = append(resp, utils.ExportStats(idx.StatsMap()))
+	}
 	return resp, nil
 }
 

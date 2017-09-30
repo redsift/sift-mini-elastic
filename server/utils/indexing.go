@@ -35,6 +35,7 @@ func OpenIndex(forSearch bool) (bleve.Index, error) {
 
 	var idx bleve.Index
 	var err error
+	start := time.Now()
 	if forSearch {
 		cfg := map[string]interface{}{
 			"read_only": true,
@@ -44,7 +45,6 @@ func OpenIndex(forSearch bool) (bleve.Index, error) {
 			err = errors.New("Tried to search before indexing: " + err.Error())
 		}
 	} else {
-		start := time.Now()
 		idx, err = bleve.Open(indexPath)
 		if err != nil {
 			// make a new one
@@ -78,13 +78,16 @@ func OpenIndex(forSearch bool) (bleve.Index, error) {
 			mapping.DefaultAnalyzer = "standard"
 			idx, err = bleve.New(indexPath, mapping)
 
-		} else {
-			fmt.Printf("Index opened in %s (write)\n", time.Now().Sub(start))
 		}
 	}
 	if err != nil {
 		return nil, err
 	}
+	t := "write"
+	if forSearch {
+		t = "read"
+	}
+	fmt.Printf("Index opened in %s (%s)\n", time.Now().Sub(start), t)
 	return idx, nil
 }
 
@@ -128,7 +131,7 @@ func UpdateIndex(idx bleve.Index, lines []MajesticDatum) error {
 	return nil
 }
 
-func ExportStats(idx bleve.Index) sandboxrpc.ComputeResponse {
-	idx_stats, _ := json.Marshal(idx.StatsMap())
+func ExportStats(statsmap map[string]interface{}) sandboxrpc.ComputeResponse {
+	idx_stats, _ := json.Marshal(statsmap)
 	return sandboxrpc.NewComputeResponse("stats", "index_stats", idx_stats, 0, 0)
 }
