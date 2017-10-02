@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
 	"os"
@@ -9,10 +8,10 @@ import (
 
 	"github.com/blevesearch/bleve"
 	"github.com/redsift/blevex/rocksdb"
-	"github.com/redsift/go-sandbox-rpc"
 )
 
 const BatchSize = 1000
+const LinesFromCSV = 1000
 
 type MajesticDatum struct {
 	GlobalRank     string
@@ -91,28 +90,29 @@ func OpenIndex(forSearch bool) (bleve.Index, error) {
 	return idx, nil
 }
 
-func UpdateIndex(idx bleve.Index, lines []MajesticDatum) error {
+func UpdateIndex(idx bleve.Index, lines [][]string) error {
 	start := time.Now()
 
 	var batch *bleve.Batch
 
 	for i, s := range lines {
+		if i == LinesFromCSV {
+			break
+		}
 		if batch == nil {
 			batch = idx.NewBatch()
 		}
-		if len(s.GlobalRank) == 0 {
+
+		mjl := MajesticDatum{s[0], s[1], s[2], s[3], s[4], s[5], s[6], s[7], s[8], s[9], s[10], s[11]}
+		if len(mjl.GlobalRank) == 0 {
 			continue
 		}
-		if err := batch.Index(s.GlobalRank, s); err != nil {
+		if err := batch.Index(mjl.GlobalRank, mjl); err != nil {
 			return err
 		}
 
-		if i%100 == 0 {
-			fmt.Println("Indexed...", i)
-		}
-
 		if batch.Size() == BatchSize {
-			fmt.Println("committing batch!")
+			fmt.Println("committing batch!", i)
 			if err := idx.Batch(batch); err != nil {
 				return err
 			}
@@ -127,11 +127,6 @@ func UpdateIndex(idx bleve.Index, lines []MajesticDatum) error {
 		batch = nil
 	}
 
-	fmt.Printf("Indexed %d lines in %0.3fs\n", len(lines), time.Now().Sub(start).Seconds())
+	fmt.Printf("Indexed %d lines in %0.3fs\n", LinesFromCSV, time.Now().Sub(start).Seconds())
 	return nil
-}
-
-func ExportStats(statsmap map[string]interface{}) sandboxrpc.ComputeResponse {
-	idx_stats, _ := json.Marshal(statsmap)
-	return sandboxrpc.NewComputeResponse("stats", "index_stats", idx_stats, 0, 0)
 }
