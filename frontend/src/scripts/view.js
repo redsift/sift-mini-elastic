@@ -3,7 +3,7 @@
  */
 import { SiftView, registerSiftView } from '@redsift/sift-sdk-web';
 
-const nanoToSecs = v => Math.round(v/Math.pow(10, 7)) / 100
+const nanoToMillis = v => Math.round(v/Math.pow(10, 4)) / 100
 
 export default class MyView extends SiftView {
   constructor() {
@@ -27,7 +27,8 @@ export default class MyView extends SiftView {
     if (!stats || !stats.index) {
       return;
     }
-    ["analysis_time", "index_time"].forEach(x => stats.index[x] = nanoToSecs(stats.index[x]) +'s' );
+    ["analysis_time", "index_time"].forEach(x => stats.index[x] = nanoToMillis(stats.index[x]) +'ms' );
+    stats["search_time"] = nanoToMillis(stats["search_time"]) +'ms'
     document.querySelector("#index_stats").innerHTML = JSON.stringify(stats, null, ' ')
   }
 
