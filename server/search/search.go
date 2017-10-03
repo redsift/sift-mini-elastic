@@ -46,7 +46,7 @@ func Compute(req sandboxrpc.ComputeRequest) ([]sandboxrpc.ComputeResponse, error
 
 		htmlQuery := u.Query()
 		q := strings.TrimSpace(htmlQuery.Get("q"))
-		searchRequest := bleve.NewSearchRequest(bleve.NewMatchQuery(q))
+		searchRequest := bleve.NewSearchRequest(bleve.NewQueryStringQuery(q))
 		searchRequest.Fields = []string{"*"}
 		searchResult, err := idx.Search(searchRequest)
 		if err != nil {
