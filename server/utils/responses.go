@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/blevesearch/bleve"
 	"github.com/redsift/go-sandbox-rpc"
 	rpc "github.com/redsift/go-sandbox-rpc/rpc"
 )
@@ -30,7 +31,10 @@ func ErrorResponse(key string, msg string, err error) sandboxrpc.ComputeResponse
 	return NewComputeResponse(key, 500, []byte(et), false)
 }
 
-func ExportStats(statsmap map[string]interface{}) sandboxrpc.ComputeResponse {
+func ExportStats(idx bleve.Index) sandboxrpc.ComputeResponse {
+	statsmap := idx.StatsMap()
+	dc, _ := idx.DocCount()
+	statsmap["doc_count"] = dc
 	idx_stats, _ := json.Marshal(statsmap)
 	return sandboxrpc.NewComputeResponse("stats", "index_stats", idx_stats, 0, 0)
 }

@@ -49,5 +49,5 @@ func Compute(req sandboxrpc.ComputeRequest) ([]sandboxrpc.ComputeResponse, error
 		return nil, err
 	}
 
-	return []sandboxrpc.ComputeResponse{utils.ExportStats(idx.StatsMap())}, nil
+	return []sandboxrpc.ComputeResponse{utils.ExportStats(idx)}, nil
 }

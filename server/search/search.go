@@ -59,7 +59,7 @@ func Compute(req sandboxrpc.ComputeRequest) ([]sandboxrpc.ComputeResponse, error
 	}
 
 	if idx != nil {
-		resp = append(resp, utils.ExportStats(idx.StatsMap()))
+		resp = append(resp, utils.ExportStats(idx))
 	}
 	return resp, nil
 }
