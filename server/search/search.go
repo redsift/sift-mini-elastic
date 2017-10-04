@@ -17,12 +17,9 @@ func Compute(req sandboxrpc.ComputeRequest) ([]sandboxrpc.ComputeResponse, error
 	idx, errI := utils.OpenIndex(true)
 	if errI != nil {
 		errI = errors.New("Something went wrong while creating the index: " + errI.Error())
+	}else{
+		defer idx.Close()
 	}
-	defer func() {
-		if errI == nil {
-			idx.Close()
-		}
-	}()
 
 	var resp []sandboxrpc.ComputeResponse
 	for _, v := range inData {
