@@ -28,7 +28,7 @@ func fetchMajesticCSV() ([][]string, error) {
 	}
 
 	fmt.Printf("Fetched csv in %0.3fs\n", time.Now().Sub(start).Seconds())
-	return records, nil
+	return records[1:], nil
 }
 
 func Compute(req sandboxrpc.ComputeRequest) ([]sandboxrpc.ComputeResponse, error) {

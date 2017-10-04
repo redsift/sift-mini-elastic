@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/blevesearch/bleve"
@@ -14,18 +15,27 @@ const BatchSize = 1000
 const LinesFromCSV = 1000
 
 type MajesticDatum struct {
-	GlobalRank     string
-	TldRank        string
+	GlobalRank     int
+	TldRank        int
 	Domain         string
 	TLD            string
-	RefSubNets     string
-	RefIPs         string
+	RefSubNets     int
+	RefIPs         int
 	IDN_Domain     string
 	IDN_TLD        string
-	PrevGlobalRank string
-	PrevTldRank    string
-	PrevRefSubNets string
-	PrevRefIPs     string
+	PrevGlobalRank int
+	PrevTldRank    int
+	PrevRefSubNets int
+	PrevRefIPs     int
+}
+
+func newMajecticDatum(line []string) MajesticDatum {
+	ls := make([]int, 12)
+	for i, value := range line {
+		t, _ := strconv.Atoi(value)
+		ls[i] = t
+	}
+	return MajesticDatum{ls[0], ls[1], line[2], line[3], ls[4], ls[5], line[6], line[7], ls[8], ls[9], ls[10], ls[11]}
 }
 
 func OpenIndex(forSearch bool) (bleve.Index, error) {
@@ -59,18 +69,18 @@ func OpenIndex(forSearch bool) (bleve.Index, error) {
 			numIndexed.IncludeInAll = true
 
 			lineMapping := bleve.NewDocumentMapping()
-			lineMapping.AddFieldMappingsAt("GlobalRank", stdStoredAndIndexed)
-			lineMapping.AddFieldMappingsAt("TldRank", stdStoredAndIndexed)
+			lineMapping.AddFieldMappingsAt("GlobalRank", numIndexed)
+			lineMapping.AddFieldMappingsAt("TldRank", numIndexed)
 			lineMapping.AddFieldMappingsAt("Domain", stdStoredAndIndexed)
 			lineMapping.AddFieldMappingsAt("TLD", stdStoredAndIndexed)
-			lineMapping.AddFieldMappingsAt("RefSubNets", stdStoredAndIndexed)
-			lineMapping.AddFieldMappingsAt("RefIPs", stdStoredAndIndexed)
+			lineMapping.AddFieldMappingsAt("RefSubNets", numIndexed)
+			lineMapping.AddFieldMappingsAt("RefIPs", numIndexed)
 			lineMapping.AddFieldMappingsAt("IDN_Domain", stdStoredAndIndexed)
 			lineMapping.AddFieldMappingsAt("IDN_TLD", stdStoredAndIndexed)
-			lineMapping.AddFieldMappingsAt("PrevGlobalRank", stdStoredAndIndexed)
-			lineMapping.AddFieldMappingsAt("PrevTldRank", stdStoredAndIndexed)
-			lineMapping.AddFieldMappingsAt("PrevRefSubNets", stdStoredAndIndexed)
-			lineMapping.AddFieldMappingsAt("PrevRefIPs", stdStoredAndIndexed)
+			lineMapping.AddFieldMappingsAt("PrevGlobalRank", numIndexed)
+			lineMapping.AddFieldMappingsAt("PrevTldRank", numIndexed)
+			lineMapping.AddFieldMappingsAt("PrevRefSubNets", numIndexed)
+			lineMapping.AddFieldMappingsAt("PrevRefIPs", numIndexed)
 
 			mapping := bleve.NewIndexMapping()
 			mapping.DefaultMapping = lineMapping
@@ -103,11 +113,8 @@ func UpdateIndex(idx bleve.Index, lines [][]string) error {
 			batch = idx.NewBatch()
 		}
 
-		mjl := MajesticDatum{s[0], s[1], s[2], s[3], s[4], s[5], s[6], s[7], s[8], s[9], s[10], s[11]}
-		if len(mjl.GlobalRank) == 0 {
-			continue
-		}
-		if err := batch.Index(mjl.GlobalRank, mjl); err != nil {
+		mjl := newMajecticDatum(s)
+		if err := batch.Index(strconv.Itoa(mjl.GlobalRank), mjl); err != nil {
 			return err
 		}
 
