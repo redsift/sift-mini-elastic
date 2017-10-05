@@ -2,6 +2,7 @@ package search
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 	"sift/utils"
 	"strings"
@@ -27,7 +28,7 @@ func Compute(req sandboxrpc.ComputeRequest) ([]sandboxrpc.ComputeResponse, error
 	defer idx.Close()
 
 	var rpcReq rpc.Request
-	err := json.Unmarshal(v.Data.Value, &rpcReq)
+	err = json.Unmarshal(v.Data.Value, &rpcReq)
 	if err != nil {
 		resp = append(resp, utils.ErrorResponse(v.Data.Key, "Unmarshal the rpc request failed", err))
 		return resp, nil
