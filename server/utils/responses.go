@@ -26,7 +26,7 @@ func NewComputeResponse(k string, status int, b []byte, isJSON bool) sandboxrpc.
 func ErrorResponse(key string, msg string, err error) sandboxrpc.ComputeResponse {
 	et := err.Error()
 	if len(msg) > 0 {
-		et = fmt.Sprintf("%s: %s\n", msg, err.Error())
+		et = fmt.Sprintf("%s: %v\n", msg, err)
 	}
 	return NewComputeResponse(key, 500, []byte(et), false)
 }
