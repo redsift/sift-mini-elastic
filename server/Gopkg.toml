@@ -3,5 +3,5 @@
   name = "github.com/blevesearch/bleve"
 
 [[constraint]]
-  branch = "no-snapshot-release"
+  branch = "patched"
   name = "github.com/redsift/blevex"
