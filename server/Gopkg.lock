@@ -32,10 +32,10 @@
   revision = "130e6b02ab059e7b717a096f397c5b60111cae74"
 
 [[projects]]
-  branch = "no-snapshot-release"
+  branch = "patched"
   name = "github.com/redsift/blevex"
   packages = ["rocksdb"]
-  revision = "114a66693f3db0b431456fe9f4e36db6d700fe66"
+  revision = "9036f667040523de3132d55fd25d8862ad814e74"
 
 [[projects]]
   branch = "master"
@@ -70,6 +70,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "9fd3948ca89881942f7ef9a73d4827902e8f9f078f473d645f066dffd06dc6df"
+  inputs-digest = "b51501cd75a718a084c2592dcf466c759b5932dee348d05fd1311db11d5dd557"
   solver-name = "gps-cdcl"
   solver-version = 1
