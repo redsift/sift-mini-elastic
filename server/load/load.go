@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"sift/utils"
+	"server/utils"
 	"time"
 
 	"github.com/redsift/go-sandbox-rpc"

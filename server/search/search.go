@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"sift/utils"
+	"server/utils"
 	"strings"
 
 	"github.com/blevesearch/bleve"

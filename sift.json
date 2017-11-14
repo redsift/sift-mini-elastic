@@ -32,7 +32,7 @@
       "#": "Index Node",
       "implementation": {
         "go": "server/load/load.go",
-        "sandbox": "quay.io/redsift/sandbox-go-rocksdb:v1.9",
+        "sandbox": "quay.io/redsift/sandbox-go-rocksdb:v5.8",
         "qos": {
           "large-storage": ["rocksdb_store:rw"],
           "long": true
@@ -51,7 +51,7 @@
       },
       "implementation": {
         "go": "server/search/search.go",
-        "sandbox": "quay.io/redsift/sandbox-go-rocksdb:v1.9",
+        "sandbox": "quay.io/redsift/sandbox-go-rocksdb:v5.8",
         "qos": {
           "large-storage": ["rocksdb_store:ro"]
         }

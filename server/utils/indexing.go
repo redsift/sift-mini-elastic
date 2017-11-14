@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/blevesearch/bleve"
+	"github.com/blevesearch/bleve/index/upsidedown"
 	"github.com/redsift/blevex/rocksdb"
 )
 
@@ -39,7 +40,6 @@ func newMajecticDatum(line []string) MajesticDatum {
 }
 
 func OpenIndex(forSearch bool) (bleve.Index, error) {
-	_ = rocksdb.Name
 	indexPath := os.Getenv("_LARGE_STORAGE_rocksdb_store")
 
 	var idx bleve.Index
@@ -85,7 +85,7 @@ func OpenIndex(forSearch bool) (bleve.Index, error) {
 			mapping := bleve.NewIndexMapping()
 			mapping.DefaultMapping = lineMapping
 			mapping.DefaultAnalyzer = "standard"
-			idx, err = bleve.New(indexPath, mapping)
+			idx, err = bleve.NewUsing(indexPath, mapping, upsidedown.Name, rocksdb.Name, nil)
 
 		}
 	}
