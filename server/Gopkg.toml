@@ -1,7 +1,11 @@
 [[constraint]]
-  branch = "master"
-  name = "github.com/blevesearch/bleve"
+  branch = "ripfield"
+  name = "github.com/redsift/bleve"
 
 [[constraint]]
   branch = "patched"
   name = "github.com/redsift/blevex"
+
+[[override]]
+  branch = "patched"
+  name = "github.com/redsift/gorocksdb"

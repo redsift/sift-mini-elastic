@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/blevesearch/bleve"
+	"github.com/redsift/bleve"
 	"github.com/redsift/go-sandbox-rpc"
 	rpc "github.com/redsift/go-sandbox-rpc/rpc"
 )

@@ -2,74 +2,137 @@
 
 
 [[projects]]
-  branch = "master"
-  name = "github.com/blevesearch/bleve"
-  packages = [".","analysis","analysis/analyzer/standard","analysis/datetime/flexible","analysis/datetime/optional","analysis/lang/en","analysis/token/lowercase","analysis/token/porter","analysis/token/stop","analysis/tokenizer/unicode","document","geo","index","index/store","index/store/boltdb","index/store/gtreap","index/upsidedown","mapping","numeric","registry","search","search/collector","search/facet","search/highlight","search/highlight/format/html","search/highlight/fragmenter/simple","search/highlight/highlighter/html","search/highlight/highlighter/simple","search/query","search/scorer","search/searcher"]
-  revision = "6eea5b78da004393b1d06b8c88d1bed9ca0a94b2"
-
-[[projects]]
+  digest = "1:b9a6b4e079fea1e137c0f8caeb65030978a8dee9f37df5a6ffd9fabe98cdd32e"
   name = "github.com/blevesearch/go-porterstemmer"
   packages = ["."]
+  pruneopts = ""
   revision = "b4dd94e38f29620fe0f97ae4b0f6994b0d5d75f0"
   version = "v1.0.1"
 
 [[projects]]
   branch = "master"
+  digest = "1:eb75e36e2b8b6a24e51dd1cd5692bfa0594003aeeb867a774d0ff1159fcb9ff9"
   name = "github.com/blevesearch/segment"
   packages = ["."]
+  pruneopts = ""
   revision = "762005e7a34fd909a84586299f1dd457371d36ee"
 
 [[projects]]
+  digest = "1:ed112122ed4a920d944cc99b9d00b0441c11685939c28462c719488d36fe29aa"
   name = "github.com/boltdb/bolt"
   packages = ["."]
+  pruneopts = ""
   revision = "2f1ce7a837dcb8da3ec595b1dac9d0632f0f99e8"
   version = "v1.3.1"
 
 [[projects]]
   branch = "master"
+  digest = "1:27854310d59099f8dcc61dd8af4a69f0a3597f001154b2fb4d1c41baf2e31ec1"
   name = "github.com/golang/protobuf"
   packages = ["proto"]
+  pruneopts = ""
   revision = "130e6b02ab059e7b717a096f397c5b60111cae74"
 
 [[projects]]
+  branch = "ripfield"
+  digest = "1:723c33d854766a823bc0ddec54c6ed42187c62d933fe276276061dd91ae165c5"
+  name = "github.com/redsift/bleve"
+  packages = [
+    ".",
+    "analysis",
+    "analysis/analyzer/standard",
+    "analysis/datetime/flexible",
+    "analysis/datetime/optional",
+    "analysis/lang/en",
+    "analysis/token/lowercase",
+    "analysis/token/porter",
+    "analysis/token/stop",
+    "analysis/tokenizer/unicode",
+    "document",
+    "geo",
+    "index",
+    "index/store",
+    "index/store/boltdb",
+    "index/store/gtreap",
+    "index/upsidedown",
+    "mapping",
+    "numeric",
+    "registry",
+    "search",
+    "search/collector",
+    "search/facet",
+    "search/highlight",
+    "search/highlight/format/html",
+    "search/highlight/fragmenter/simple",
+    "search/highlight/highlighter/html",
+    "search/highlight/highlighter/simple",
+    "search/query",
+    "search/scorer",
+    "search/searcher",
+  ]
+  pruneopts = ""
+  revision = "caec8dd6d92cba370a8fa1051606f8a077107fed"
+
+[[projects]]
   branch = "patched"
+  digest = "1:e050bd33dc75ecabe71e0afbbc159b18fd99b23074263d9124383c22035c8889"
   name = "github.com/redsift/blevex"
   packages = ["rocksdb"]
-  revision = "9036f667040523de3132d55fd25d8862ad814e74"
+  pruneopts = ""
+  revision = "6027903768e6eee5e4cbd39e8177777d9c850467"
 
 [[projects]]
   branch = "master"
+  digest = "1:2823130d0e6650b885a126be1644704791921fb4ca2ecdbec3031a045020d0af"
   name = "github.com/redsift/go-sandbox-rpc"
-  packages = [".","rpc"]
+  packages = [
+    ".",
+    "rpc",
+  ]
+  pruneopts = ""
   revision = "c7a7e8027a750304d12db13b270af95c3a35a97e"
 
 [[projects]]
+  branch = "patched"
+  digest = "1:50264fb7e07aed66ce623f00b7b2a48739ae3295b4eacf17325e1b49c19d3ebb"
+  name = "github.com/redsift/gorocksdb"
+  packages = ["."]
+  pruneopts = ""
+  revision = "d1d69065a9b96ad8c55b08025857dc4688fc450b"
+
+[[projects]]
   branch = "master"
+  digest = "1:49f625590d0a3a4d0db850eb233fd22b110c490aa8123589445924d2d47bbe0a"
   name = "github.com/steveyen/gtreap"
   packages = ["."]
+  pruneopts = ""
   revision = "0abe01ef9be25c4aedc174758ec2d917314d6d70"
 
 [[projects]]
   branch = "master"
-  name = "github.com/tecbot/gorocksdb"
-  packages = ["."]
-  revision = "b9cb0d30eca790f5bcf524dd3beb715d6c8d1923"
-
-[[projects]]
-  branch = "master"
+  digest = "1:454e3157f3a45d7c0d4b99be8fc761869d8d90800a0c67820f5319ecc2d513a7"
   name = "golang.org/x/net"
   packages = ["context"]
+  pruneopts = ""
   revision = "b60f3a92103dfd93dfcb900ec77c6d0643510868"
 
 [[projects]]
   branch = "master"
+  digest = "1:c61dac47382f9834b58d28a3ef9072a569960d364fd76afc19487fb63550be81"
   name = "golang.org/x/sys"
   packages = ["unix"]
+  pruneopts = ""
   revision = "b6e1ae21643682ce023deb8d152024597b0e9bb4"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "e6b656ab344748324098a9986e135ac8a83f1f4e3c50a195aab180586fc72d47"
+  input-imports = [
+    "github.com/redsift/bleve",
+    "github.com/redsift/bleve/index/upsidedown",
+    "github.com/redsift/blevex/rocksdb",
+    "github.com/redsift/go-sandbox-rpc",
+    "github.com/redsift/go-sandbox-rpc/rpc",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1

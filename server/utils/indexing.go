@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/blevesearch/bleve"
-	"github.com/blevesearch/bleve/index/upsidedown"
+	"github.com/redsift/bleve"
+	"github.com/redsift/bleve/index/upsidedown"
 	"github.com/redsift/blevex/rocksdb"
 )
 
